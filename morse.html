@@ -7,9 +7,21 @@
     <title>Morse Code Generator</title>
 
     <style>
-        .morse {
-            font-size: 50px;
+        :root {
+            --main-bg-color: #101820FF;  
+            --main-txt-color: #006B38FF; 
         }
+        body {
+            background-color: var(--main-bg-color);
+            color: var(--main-txt-color);
+        }
+        .morse {
+            font-size: 30px;
+            
+        }
+
+
+
 
     </style>
 </head>
@@ -18,24 +30,33 @@
 
 <script>
 //MODEL
-        const morseArray =  [ '.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....',
+        const morseArray =  ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....',
         '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.',
         '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-',
         '-.--', '--..', ' ', '·−·−', '−−−·', '·−−·−']
 
         const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ','æ','ø','å']
-
-        let output =' ';
         let input = ' ';
+        let output =' ';
+        
+       
+        
 
         //VIEW
         showApp();
         function showApp(){
             let html = /*html*/ `
-            <input id="banan" placeholder="placeholder" onchange= "input=this.value" type=txt;  >
-            <button  onclick="trans()" >Convert</button>
+           <center> 
+            <h1>Morse Code Generator</h1>
+            <input placeholder="Type your text" onchange= "input=this.value" type=txt;  >
+            <button onclick="trans()">Convert-text</button>
+            <button onclick="reverse()">Convert-morse</button>
+            <button onclick= "reset()">Clear</button>
+            <div class= "morse"> ${input}</div>
+            <div class= "morse"> ${output}</center>
+            </div>
             
-           <div class= "morse"> ${output}</div>
+           
             `
         
         document.getElementById('app').innerHTML = html;
@@ -45,12 +66,33 @@
 
         function trans(){
             for (let index = 0; index < input.length; index++) {
-                    const i = alphabet.indexOf(input[index])
+                    const i = alphabet.indexOf(input.toLowerCase()[index])
                     const morseCode = morseArray[i]
-                    output += morseCode + " "; 
+                    output += morseCode + ' ';
+                    
+
                 }
                     showApp();
              }
+        
+        function reverse(){
+            let horse = input.split(' ')
+            for (let index = 0; index < horse.length; index++) {
+                    const i = morseArray.indexOf(horse[index])
+                    const letters = alphabet[i]
+                    output += letters; 
+                    
+                    
+
+                }
+                    showApp();
+             }
+        
+        function reset(){
+            input = ' ';
+            output = ' ';
+            showApp();
+         }  
         
 </script>
     
